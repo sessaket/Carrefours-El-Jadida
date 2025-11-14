@@ -1,4 +1,4 @@
-const CARREFOURS = [
+[
   {
     "id": "cf_01",
     "name": "Av. Houmane Al Fatouaki * Av. Houmane Al Fatouaki",
@@ -377,4 +377,4 @@ const CARREFOURS = [
       "west": "Av. Setes"
     }
   }
-];
+]
