@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Carte des carrefours - El Jadida</title>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="app">
+    <div id="map"></div>
+
+    <div id="sidebar">
+      <h1>Carrefours El Jadida</h1>
+
+      <div class="legend">
+        <h3>Statut</h3>
+        <p>🟢 équipé en service</p>
+        <p>🟡 équipé hors service</p>
+        <p>🔴 non régulé</p>
+      </div>
+
+      <!-- 🔍 Recherche -->
+      <div class="form-block">
+        <h3>Rechercher un carrefour</h3>
+        <label>
+          Nom ou ID
+          <input
+            type="text"
+            id="search-input"
+            placeholder="cf_01, Mohamed V..."
+          />
+        </label>
+        <button type="button" id="search-btn">Rechercher</button>
+        <p class="hint" id="search-result"></p>
+      </div>
+
+      <!-- Liste + CRUD -->
+      <div class="form-block">
+        <h3>Liste des carrefours (CRUD)</h3>
+        <p class="hint">
+          Clique sur Zoom / Edit / Supprimer.<br/>
+          L’édition met à jour la carte et le JSON.
+        </p>
+        <div id="cf-list"></div>
+      </div>
+
+      <div class="form-block">
+        <h3>Ajouter / Modifier un carrefour</h3>
+
+        <p class="hint">
+          👉 Clique sur la carte pour remplir la latitude/longitude<br/>
+          👉 Ou colle un lien Google Maps / "lat,lng".
+        </p>
+
+        <form id="add-form">
+          <label>
+            Nom du carrefour
+            <input type="text" id="cf-name" placeholder="Ex: Av. X * Rue Y" required />
+          </label>
+
+          <!-- coller lien ou lat,lng -->
+          <label>
+            Lien Google Maps ou "lat,lng"
+            <input
+              type="text"
+              id="cf-location"
+              placeholder="https://www.google.com/maps?q=33.24,-8.50 ou 33.24,-8.50"
+            />
+          </label>
+
+          <div class="row">
+            <label>
+              Latitude
+              <input type="number" step="0.0000001" id="cf-lat" required />
+            </label>
+            <label>
+              Longitude
+              <input type="number" step="0.0000001" id="cf-lng" required />
+            </label>
+          </div>
+
+          <label>
+            Statut
+            <select id="cf-status" required>
+              <option value="équipé en service">🟢 équipé en service</option>
+              <option value="équipé hors service">🟡 équipé hors service</option>
+              <option value="non régulé">🔴 non régulé</option>
+            </select>
+          </label>
+
+          <label>
+            Notes
+            <input type="text" id="cf-notes" placeholder="Optionnel" />
+          </label>
+
+          <h4>Voiries</h4>
+          <label>Nord <input type="text" id="cf-north" /></label>
+          <label>Sud <input type="text" id="cf-south" /></label>
+          <label>Est <input type="text" id="cf-east" /></label>
+          <label>Ouest <input type="text" id="cf-west" /></label>
+
+          <button type="submit" id="cf-submit-btn">Ajouter le carrefour</button>
+        </form>
+      </div>
+
+      <div class="form-block">
+        <h3>Exporter le JSON</h3>
+        <button id="export-btn">Générer JSON</button>
+        <textarea id="json-output" rows="10" readonly></textarea>
+        <p class="hint">
+          Copie ce JSON et remplace ton fichier si tu veux sauvegarder les nouveaux carrefours.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <!-- Logique de l'app -->
+  <script src="main.js"></script>
+</body>
+</html>
